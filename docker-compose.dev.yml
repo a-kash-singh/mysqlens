@@ -1,0 +1,58 @@
+services:
+  # FastAPI Backend (Development)
+  mysqlens-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mysqlens-api-dev
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - LLM_PROVIDER=${LLM_PROVIDER:-gemini}
+      - BACKEND_HOST=0.0.0.0
+      - BACKEND_PORT=8080
+      - BACKEND_RELOAD=true
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - LOG_LEVEL=INFO
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/app
+      - api_cache:/app/cache
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - mysqlens-network
+    command: python main.py
+
+  # Next.js Frontend (Development)
+  mysqlens-ui:
+    image: node:20-alpine
+    container_name: mysqlens-ui-dev
+    working_dir: /app
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
+      - BACKEND_URL=http://mysqlens-api:8080
+      - NODE_ENV=development
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - mysqlens-api
+    networks:
+      - mysqlens-network
+    command: sh -c "npm install && npm run dev"
+
+volumes:
+  api_cache:
+    driver: local
+
+networks:
+  mysqlens-network:
+    driver: bridge
+

@@ -1,0 +1,24 @@
+{
+  "connections": [
+    {
+      "name": "Production MySQL",
+      "host": "your-mysql-host.com",
+      "port": 3306,
+      "user": "your_user",
+      "password": "your_password",
+      "database": "your_database",
+      "is_default": true
+    },
+    {
+      "name": "Staging MySQL",
+      "host": "your-mysql-host.com",
+      "port": 3306,
+      "user": "your_user",
+      "password": "your_password",
+      "database": "mysql",
+      "is_default": false
+    }
+  ],
+  "auto_connect": false
+}
+
