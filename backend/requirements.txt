@@ -26,7 +26,7 @@ google-generativeai==0.3.2
 # Note: Ollama client uses aiohttp (already included)
 
 # WebSocket support
-websockets==12.0
+websockets==16.0
 
 # Caching
 diskcache==5.6.3
