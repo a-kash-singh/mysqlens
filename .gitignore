@@ -57,7 +57,6 @@ docker-compose.override.yml
 *.db
 *.sqlite
 *.sqlite3
-optischema.db
 mysqlens.db
 
 # Database connection config (contains credentials)
