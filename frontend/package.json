@@ -28,7 +28,7 @@
     "recharts": "^2.10.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
-    "zustand": "^4.4.6"
+    "zustand": "^5.0.10"
   },
   "devDependencies": {
     "@types/node": "^20",
