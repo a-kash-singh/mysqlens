@@ -1,0 +1,50 @@
+# MySQLens GitHub Pages Configuration
+# This file configures Jekyll to render the README.md as the homepage
+
+# Site settings
+title: MySQLens
+description: AI-powered MySQL performance optimization tool
+url: "https://a-kash-singh.github.io"
+baseurl: "/mysqlens"
+
+# Theme
+remote_theme: pages-themes/minimal@v0.2.0
+plugins:
+  - jekyll-remote-theme
+
+# Use README.md as the index
+index:
+  - README.md
+
+# Exclude files from Jekyll build
+exclude:
+  - backend/
+  - frontend/
+  - scripts/
+  - docker/
+  - node_modules/
+  - vendor/
+  - Makefile
+  - docker-compose*.yml
+  - "*.sh"
+  - "*.json"
+  - .env*
+  - .git/
+  - .github/workflows/ci.yml
+  - .github/workflows/release.yml
+  - .github/workflows/deploy.yml
+
+# Include the docs folder
+include:
+  - docs/
+  - "*.md"
+
+# Markdown settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+# Enable GitHub Flavored Markdown
+gfm_quirks: paragraph_end
