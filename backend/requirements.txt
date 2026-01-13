@@ -1,28 +1,28 @@
 # FastAPI and ASGI server
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
+fastapi==0.128.0
+uvicorn[standard]==0.40.0
 
 # Database - MySQL
-aiomysql==0.2.0
-pymysql==1.1.0
+aiomysql==0.3.2
+pymysql==1.1.2
 
 # Environment and configuration
-python-dotenv==1.0.0
-pydantic==2.5.0
-pydantic-settings==2.1.0
+python-dotenv==1.2.1
+pydantic==2.12.5
+pydantic-settings==2.12.0
 
 # Security and encryption
 cryptography==41.0.7
 bcrypt==4.1.2
-pyjwt==2.8.0
+pyjwt==2.10.1
 
 # Data processing and analysis
 sqlglot==27.0.0
 
 # AI and LLM providers
 openai==1.3.7
-aiohttp==3.9.1
-google-generativeai==0.3.2
+aiohttp==3.13.3
+google-generativeai==0.8.6
 # Note: Ollama client uses aiohttp (already included)
 
 # WebSocket support
@@ -32,7 +32,7 @@ websockets==12.0
 diskcache==5.6.3
 
 # HTTP client
-httpx==0.25.2
+httpx==0.28.1
 
 # Logging and monitoring
 structlog==23.2.0
@@ -44,4 +44,4 @@ black==23.11.0
 flake8==6.1.0
 
 # SQLite for metadata storage
-aiosqlite==0.19.0
+aiosqlite==0.22.1
