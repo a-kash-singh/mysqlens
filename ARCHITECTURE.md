@@ -374,12 +374,12 @@ DEBUG: Detailed information (SQL queries, API responses)
 
 ### Docker Compose (Default)
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### Development Mode
 ```bash
-docker-compose -f docker-compose.dev.yml up
+docker compose -f docker compose.dev.yml up
 ```
 
 ### Production Considerations

@@ -4,7 +4,7 @@ This guide covers various deployment scenarios for MySQLens.
 
 ## Table of Contents
 
-- [Docker Compose (Recommended)](#docker-compose-recommended)
+- [Docker Compose (Recommended)](#docker compose-recommended)
 - [Manual Installation](#manual-installation)
 - [Production Deployment](#production-deployment)
 - [Cloud Deployment](#cloud-deployment)
@@ -29,23 +29,23 @@ cp .env.example .env
 nano .env
 
 # Start services
-docker-compose up -d
+docker compose up -d
 
 # Check status
-docker-compose ps
+docker compose ps
 
 # View logs
-docker-compose logs -f
+docker compose logs -f
 ```
 
 ### Production Deployment with Docker Compose
 
 ```bash
 # Use production compose file
-docker-compose -f docker-compose.yml up -d
+docker compose -f docker compose.yml up -d
 
 # Scale services (if needed)
-docker-compose up -d --scale mysqlens-api=2
+docker compose up -d --scale mysqlens-api=2
 ```
 
 ## Manual Installation
@@ -115,7 +115,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
 # Install Docker Compose
-sudo apt install docker-compose-plugin
+sudo apt install docker compose-plugin
 
 # Create application directory
 sudo mkdir -p /opt/mysqlens
@@ -242,11 +242,11 @@ sudo systemctl start certbot.timer
 
 ```bash
 cd /opt/mysqlens
-docker-compose up -d
+docker compose up -d
 
 # Verify
-docker-compose ps
-docker-compose logs -f
+docker compose ps
+docker compose logs -f
 ```
 
 ### 6. Systemd Service (Optional)
@@ -266,8 +266,8 @@ After=docker.service
 Type=oneshot
 RemainAfterExit=yes
 WorkingDirectory=/opt/mysqlens
-ExecStart=/usr/bin/docker-compose up -d
-ExecStop=/usr/bin/docker-compose down
+ExecStart=/usr/bin/docker compose up -d
+ExecStop=/usr/bin/docker compose down
 TimeoutStartSec=0
 
 [Install]
@@ -539,14 +539,14 @@ curl http://localhost:8080/api/health/scan
 
 ```bash
 # View all logs
-docker-compose logs -f
+docker compose logs -f
 
 # View specific service
-docker-compose logs -f mysqlens-api
-docker-compose logs -f mysqlens-ui
+docker compose logs -f mysqlens-api
+docker compose logs -f mysqlens-ui
 
 # Save logs to file
-docker-compose logs > logs.txt
+docker compose logs > logs.txt
 ```
 
 ### Metrics
@@ -565,10 +565,10 @@ Monitor these metrics:
 
 ```bash
 # Backup recommendations database
-docker-compose exec mysqlens-api sqlite3 /app/mysqlens.db .dump > backup.sql
+docker compose exec mysqlens-api sqlite3 /app/mysqlens.db .dump > backup.sql
 
 # Restore
-cat backup.sql | docker-compose exec -T mysqlens-api sqlite3 /app/mysqlens.db
+cat backup.sql | docker compose exec -T mysqlens-api sqlite3 /app/mysqlens.db
 ```
 
 ## Troubleshooting
@@ -584,14 +584,14 @@ cat backup.sql | docker-compose exec -T mysqlens-api sqlite3 /app/mysqlens.db
 
 ```bash
 # Check logs
-docker-compose logs
+docker compose logs
 
 # Rebuild images
-docker-compose build --no-cache
+docker compose build --no-cache
 
 # Remove old containers
-docker-compose down -v
-docker-compose up -d
+docker compose down -v
+docker compose up -d
 ```
 
 ### High Memory Usage
@@ -604,10 +604,10 @@ docker-compose up -d
 
 ```bash
 # Check backend logs
-docker-compose logs mysqlens-api
+docker compose logs mysqlens-api
 
 # Verify environment variables
-docker-compose exec mysqlens-api env | grep API_KEY
+docker compose exec mysqlens-api env | grep API_KEY
 
 # Test API directly
 curl http://localhost:8080/api/metrics/vitals

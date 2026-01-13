@@ -82,6 +82,60 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Local LLM Support with Ollama** (Inspired by OptiSchema-Slim)
+  - Complete Ollama provider implementation for privacy-first AI analysis
+  - Support for multiple Ollama models (llama3.2, sqlcoder:7b, deepseek-coder-v2)
+  - Zero data egress - all LLM processing happens locally
+  - No API costs or rate limits for AI features
+  - Offline capability for air-gapped environments
+  - Comprehensive Ollama setup guide (OLLAMA_SETUP.md)
+  - Test script for verifying Ollama integration (test_ollama.py)
+
+- **Docker Compose Improvements**
+  - **Ollama as default LLM provider** in all compose files
+  - New `docker-compose.ollama.yml` for running Ollama in Docker
+  - Automatic model downloading on first start
+  - GPU support configuration for Ollama container
+  - Better organized environment variables with clear comments
+  - Production and development configs both default to Ollama
+
+- **Documentation Improvements**
+  - Enhanced README with detailed Ollama setup instructions
+  - Comprehensive QUICK_START.md with 5-minute setup guide
+  - OLLAMA_SETUP.md with model comparisons, hardware requirements, and troubleshooting
+  - Docker Compose configurations clearly documented
+  - Reorganized documentation structure for better clarity
+
+- **Configuration Updates**
+  - Updated .env.example with Ollama as default provider
+  - Better model selection guidance
+  - Docker networking configuration for local LLM
+  - Support for both Docker and local development setups
+
+### Changed
+- **Docker Compose V2**: Updated all commands from `docker-compose` to `docker compose` (V2)
+  - Updated all documentation (README, QUICK_START, OLLAMA_SETUP, etc.)
+  - Updated Makefile to use `docker compose`
+  - Setup script now detects and supports both V1 and V2
+  - Added compatibility notes in documentation
+
+- **Docker Compose Configuration**
+  - Changed default LLM provider from "gemini" to "ollama" in all compose files
+  - Added OLLAMA_MODEL environment variable (defaults to llama3.2:latest)
+  - Reorganized environment variables with clear sections and comments
+  - Changed production defaults: BACKEND_RELOAD=false, DEBUG=false, ENVIRONMENT=production
+  - TOP_QUERIES_LIMIT increased from 10 to 50 for better analysis
+
+- **LLM Configuration**
+  - LLM provider factory now prioritizes Ollama for privacy
+  - Default Ollama model updated to llama3.2:latest
+  - Reorganized .env.example to highlight local LLM options
+  - Enhanced error messages for LLM connection issues
+
+- **Project Identity**
+  - Fixed project name in Makefile and setup.sh (was "OptiSchema-MySQL", now "MySQLens")
+
 ### Planned Features
 - [ ] Historical performance tracking
 - [ ] Query execution plan visualization

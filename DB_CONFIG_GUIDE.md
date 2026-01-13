@@ -41,7 +41,7 @@ cp db-config.example.json db-config.json
 
 3. Start Docker Compose:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 The `db-config.json` file is automatically mounted into the backend container.
@@ -50,7 +50,7 @@ The `db-config.json` file is automatically mounted into the backend container.
 
 1. Start the application:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 2. Open http://localhost:3000
@@ -230,14 +230,14 @@ To automatically connect to the default database when the container starts:
 2. Set `"is_default": true` on your preferred connection
 3. Restart the containers:
 ```bash
-docker-compose restart
+docker compose restart
 ```
 
 The application will automatically connect to the default database on startup.
 
 ## 🐳 Docker Configuration
 
-The `docker-compose.yml` automatically mounts `db-config.json`:
+The `docker compose.yml` automatically mounts `db-config.json`:
 
 ```yaml
 volumes:
@@ -320,7 +320,7 @@ cat db-config.json | jq .
 
 3. Check Docker logs:
 ```bash
-docker-compose logs -f mysqlens-api
+docker compose logs -f mysqlens-api
 ```
 
 ### File Not Found Error

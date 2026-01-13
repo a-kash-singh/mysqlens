@@ -43,7 +43,7 @@ class Settings(BaseSettings):
     
     # Ollama Configuration (Local LLM)
     ollama_base_url: str = Field(default="http://host.docker.internal:11434", env="OLLAMA_BASE_URL")
-    ollama_model: str = Field(default="llama3", env="OLLAMA_MODEL")
+    ollama_model: str = Field(default="llama3.2:latest", env="OLLAMA_MODEL")
 
     class Config:
         # Look for .env in current dir (backend/) OR parent dir (root)

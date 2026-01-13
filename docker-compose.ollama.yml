@@ -1,0 +1,66 @@
+# Docker Compose configuration with Ollama service included
+# Use this if you want to run Ollama in Docker instead of on your host machine
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.ollama.yml up -d
+#
+# This will:
+# - Run Ollama as a Docker service
+# - Automatically pull the llama3.2:latest model on first start
+# - Configure MySQLens to connect to the Ollama container
+
+services:
+  # Ollama Service - Local LLM
+  ollama:
+    image: ollama/ollama:latest
+    container_name: mysqlens-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - mysqlens-network
+    restart: unless-stopped
+    # Uncomment below for GPU support (requires nvidia-docker)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  # Update backend to use Ollama service instead of host
+  mysqlens-api:
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    depends_on:
+      - ollama
+
+  # Ollama model puller - runs once to download the model
+  ollama-puller:
+    image: ollama/ollama:latest
+    container_name: mysqlens-ollama-puller
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - mysqlens-network
+    depends_on:
+      - ollama
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        echo "Waiting for Ollama service to be ready..."
+        sleep 10
+        echo "Pulling llama3.2:latest model..."
+        ollama pull llama3.2:latest
+        echo "Model pulled successfully!"
+    restart: "no"
+
+volumes:
+  ollama_data:
+    driver: local
+
+networks:
+  mysqlens-network:
+    external: true

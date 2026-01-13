@@ -8,14 +8,53 @@
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
 [![Python](https://img.shields.io/badge/Python-3.11+-green.svg)](https://www.python.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black.svg)](https://nextjs.org/)
+[![Inspired by OptiSchema](https://img.shields.io/badge/Inspired%20by-OptiSchema--Slim-purple.svg)](https://github.com/arnab2001/Optischema-Slim)
 
 **See clearly. Optimize confidently.**
 
-[Features](#features) • [Quick Start](#quick-start) • [Documentation](#documentation) • [Architecture](#architecture) • [Contributing](#contributing)
+[Features](#features) • [Quick Start](#quick-start) • [LLM Setup](#llm-provider-setup) • [Documentation](#documentation) • [Architecture](#architecture) • [Contributing](#contributing)
 
 </div>
 
 ---
+
+## 💡 Inspiration
+
+This project is inspired by [**OptiSchema-Slim**](https://github.com/arnab2001/Optischema-Slim) - an excellent PostgreSQL performance optimization tool. We've adapted the concept for MySQL with enhanced features:
+
+- ✅ **Local LLM Support**: Complete privacy with Ollama integration
+- ✅ **MySQL-Specific**: Tailored for MySQL 8.0+ with `performance_schema`
+- ✅ **Multiple Model Support**: Choose from llama3.2, sqlcoder:7b, and more
+- ✅ **Zero Data Egress**: All AI processing happens locally (when using Ollama)
+
+Special thanks to [@arnab2001](https://github.com/arnab2001) for the innovative approach to database optimization!
+
+---
+
+## 📑 Table of Contents
+
+- **[👉 Quick Start Guide](./QUICK_START.md)** - Get started in 5 minutes!
+- [Overview](#overview)
+- [Features](#features)
+- [Quick Start](#quick-start) (condensed version)
+- [Configuration](#configuration)
+- [LLM Provider Setup](#llm-provider-setup)
+  - [Ollama (Local - Recommended)](#ollama-local-llm---recommended-for-privacy)
+  - [OpenAI](#openai)
+  - [Google Gemini](#google-gemini)
+  - [DeepSeek](#deepseek)
+- [Screenshots](#screenshots)
+- [Development](#development)
+- [Architecture](#architecture)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Contact & Support](#contact--support)
+
+---
+
+<a id="overview"></a>
 
 ## 📖 Overview
 
@@ -30,8 +69,11 @@ MySQLens is a production-ready MySQL database performance optimization tool that
 - 🔒 **Secure** - Encrypted credential storage and secure connections
 - 🐳 **Docker-Ready** - One-command deployment with Docker Compose
 - 🌐 **Remote MySQL Support** - Connect to any MySQL instance (local, cloud, RDS, etc.)
+- 🔐 **Privacy-First** - Run AI analysis completely locally with Ollama (no data leaves your machine)
 
 ---
+
+<a id="features"></a>
 
 ## ✨ Features
 
@@ -57,14 +99,43 @@ MySQLens is a production-ready MySQL database performance optimization tool that
 
 ---
 
+<a id="quick-start"></a>
+
 ## 🚀 Quick Start
 
-### Prerequisites
+**Want to get started fast?** 👉 See the **[Quick Start Guide](./QUICK_START.md)** for a complete 5-minute setup including Ollama!
+
+### TL;DR - Get Running in 5 Minutes
+
+```bash
+# 1. Install Ollama (for local AI - optional)
+brew install ollama && ollama serve
+ollama pull llama3.2:latest
+
+# 2. Clone and configure
+git clone https://github.com/a-kash-singh/mysqlens.git
+cd mysqlens
+echo "LLM_PROVIDER=ollama
+OLLAMA_BASE_URL=http://host.docker.internal:11434
+OLLAMA_MODEL=llama3.2:latest" > .env
+
+# 3. Start MySQLens
+docker compose up -d
+
+# 4. Open browser
+open http://localhost:3000
+```
+
+That's it! Connect to your MySQL and start optimizing.
+
+### Detailed Setup
+
+#### Prerequisites
 - Docker and Docker Compose
 - MySQL 8.0+ (with `performance_schema` enabled)
-- (Optional) LLM API keys for AI features
+- (Optional) LLM API keys for AI features OR Ollama for local AI
 
-### 1. Clone the Repository
+#### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/a-kash-singh/mysqlens.git
@@ -76,14 +147,17 @@ cd mysqlens
 Create a `.env` file in the project root:
 
 ```bash
-# LLM Provider Configuration (choose one or more)
-LLM_PROVIDER=gemini                    # Options: openai, gemini, deepseek, ollama
+# LLM Provider Configuration (choose one)
+LLM_PROVIDER=ollama                     # Options: ollama, openai, gemini, deepseek
 
-# API Keys (add the ones you want to use)
+# Ollama (Local LLM - No API key needed!)
+OLLAMA_BASE_URL=http://host.docker.internal:11434  # For Docker
+OLLAMA_MODEL=llama3.2:latest                        # Model name
+
+# Cloud API Keys (optional - only if not using Ollama)
 OPENAI_API_KEY=your_openai_key_here
 GEMINI_API_KEY=your_gemini_key_here
 DEEPSEEK_API_KEY=your_deepseek_key_here
-OLLAMA_BASE_URL=http://localhost:11434  # For local Ollama
 
 # Application Settings
 ENVIRONMENT=production
@@ -91,14 +165,42 @@ DEBUG=false
 LOG_LEVEL=INFO
 ```
 
+**Quick Ollama Setup:**
+```bash
+# Install and start Ollama
+brew install ollama  # macOS (see README for other platforms)
+ollama serve
+
+# Pull a model (in a new terminal)
+ollama pull llama3.2:latest
+
+# Verify it's running
+curl http://localhost:11434/api/tags
+```
+
 ### 3. Start the Application
 
 ```bash
-# Start all services
-docker-compose up -d
+# Start all services (Ollama on host - recommended)
+docker compose up -d
 
 # View logs
-docker-compose logs -f
+docker compose logs -f
+```
+
+> **Note:** We use `docker compose` (V2, built into Docker CLI) instead of the older `docker-compose` (V1). If you have an older Docker installation, use `docker-compose` with a hyphen. The setup script (`./setup.sh`) automatically detects which version you have.
+
+**Optional: Run Ollama in Docker**
+
+If you prefer to run Ollama as a container instead of on your host:
+```bash
+# Use the ollama compose extension
+docker compose -f docker-compose.yml -f docker-compose.ollama.yml up -d
+
+# This will:
+# - Run Ollama in a container
+# - Automatically download llama3.2:latest model
+# - Configure MySQLens to use the Ollama container
 ```
 
 ### 4. Access the Dashboard
@@ -122,14 +224,27 @@ Open your browser and navigate to:
 
 ---
 
+<a id="documentation"></a>
+
 ## 📚 Documentation
 
+### Getting Started
+- **[Quick Start Guide](./QUICK_START.md)** ⭐ - Complete 5-minute setup guide (includes Ollama)
+- **[Ollama Setup](./OLLAMA_SETUP.md)** - Deep dive into local LLM setup and troubleshooting
+
+### Technical Documentation
 - **[Architecture](./ARCHITECTURE.md)** - System design and technical details
 - **[API Endpoints](./API_ENDPOINTS.md)** - Complete API reference
 - **[Deployment Guide](./DEPLOYMENT.md)** - Production deployment instructions
+
+### Reference
+- **[DB Config Guide](./DB_CONFIG_GUIDE.md)** - Advanced database configuration
 - **[Contributing](./CONTRIBUTING.md)** - How to contribute to MySQLens
+- **[Changelog](./CHANGELOG.md)** - All notable changes
 
 ---
+
+<a id="architecture"></a>
 
 ## 🏗️ Architecture
 
@@ -159,6 +274,8 @@ MySQLens uses a modern, scalable architecture:
 
 ---
 
+<a id="configuration"></a>
+
 ## 🔧 Configuration
 
 ### MySQL User Permissions
@@ -184,6 +301,8 @@ For remote connections, ensure:
 
 ---
 
+<a id="llm-provider-setup"></a>
+
 ## 🤖 LLM Provider Setup
 
 ### OpenAI
@@ -204,14 +323,79 @@ DEEPSEEK_API_KEY=sk-...
 ```
 Get your key from: https://platform.deepseek.com/
 
-### Ollama (Local)
+### Ollama (Local LLM - Recommended for Privacy)
+
+Ollama allows you to run LLMs locally without sending data to external APIs. This is perfect for privacy-conscious users and offline environments.
+
+**Setup Steps:**
+
+1. **Install Ollama**
+   ```bash
+   # macOS
+   brew install ollama
+
+   # Linux
+   curl -fsSL https://ollama.com/install.sh | sh
+
+   # Windows - Download from https://ollama.com/download
+   ```
+
+2. **Start Ollama Service**
+   ```bash
+   ollama serve
+   ```
+
+3. **Pull a Recommended Model**
+   ```bash
+   # For general SQL analysis (recommended)
+   ollama pull llama3.2:latest
+
+   # For SQL-specific tasks (larger, more specialized)
+   ollama pull sqlcoder:7b
+
+   # Lightweight option (faster, less capable)
+   ollama pull llama3.2:1b
+   ```
+
+4. **Configure MySQLens**
+
+   In your `.env` file:
+   ```bash
+   LLM_PROVIDER=ollama
+   OLLAMA_BASE_URL=http://host.docker.internal:11434  # For Docker
+   # OR
+   OLLAMA_BASE_URL=http://localhost:11434              # For local development
+   OLLAMA_MODEL=llama3.2:latest                        # Or sqlcoder:7b
+   ```
+
+**Model Recommendations:**
+- **llama3.2:latest** (4.7GB) - Best balance of speed and quality for SQL analysis
+- **sqlcoder:7b** (4.1GB) - Specialized for SQL, trained on SQL optimization tasks
+- **llama3.2:1b** (1.3GB) - Lightweight, good for basic analysis on limited hardware
+- **deepseek-coder-v2** (8.9GB) - Excellent for complex query optimization
+
+**Testing Your Setup:**
 ```bash
-# Install Ollama: https://ollama.ai
-ollama pull llama2
-OLLAMA_BASE_URL=http://host.docker.internal:11434
+# Verify Ollama is running
+curl http://localhost:11434/api/tags
+
+# Test with a simple query
+curl http://localhost:11434/api/generate -d '{
+  "model": "llama3.2:latest",
+  "prompt": "Explain what a database index is"
+}'
 ```
 
+**Benefits of Local LLM:**
+- Complete data privacy - your schema and queries never leave localhost
+- No API costs or rate limits
+- Works offline
+- Faster response times (no network latency)
+- Full control over model selection
+
 ---
+
+<a id="screenshots"></a>
 
 ## 📊 Screenshots
 
@@ -225,6 +409,8 @@ OLLAMA_BASE_URL=http://host.docker.internal:11434
 ![Unused, redundant, and missing index analysis](https://via.placeholder.com/800x400?text=Index+Recommendations)
 
 ---
+
+<a id="development"></a>
 
 ## 🛠️ Development
 
@@ -271,6 +457,8 @@ make restart       # Restart all services
 
 ---
 
+<a id="contributing"></a>
+
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
@@ -285,20 +473,26 @@ We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md)
 
 ---
 
+<a id="license"></a>
+
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ---
 
+<a id="acknowledgments"></a>
+
 ## 🙏 Acknowledgments
 
-- Inspired by [OptiSchema-Slim](https://github.com/a-kash-singh/optischema-slim) for PostgreSQL
+- Inspired by [OptiSchema-Slim](https://github.com/arnab2001/Optischema-Slim) for PostgreSQL
 - Built with ❤️ using modern web technologies
 - AI-powered by OpenAI, Google, DeepSeek, and Ollama
 - UI components from [Shadcn UI](https://ui.shadcn.com/)
 
 ---
+
+<a id="contact--support"></a>
 
 ## 📬 Contact & Support
 
@@ -312,11 +506,15 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 If you find MySQLens helpful, please consider giving it a star! ⭐
 
+[![Star History Chart](https://api.star-history.com/svg?repos=a-kash-singh/mysqlens&type=Date)](https://star-history.com/#a-kash-singh/mysqlens&Date)
+
 ---
 
 <div align="center">
 
 **Built with 🔍 for better MySQL performance**
+
+**Inspired by [OptiSchema-Slim](https://github.com/arnab2001/Optischema-Slim)**
 
 [⬆ Back to Top](#mysqlens)
 
