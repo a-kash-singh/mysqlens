@@ -20,7 +20,7 @@ pyjwt==2.10.1
 sqlglot==27.0.0
 
 # AI and LLM providers
-openai==1.3.7
+openai==2.15.0
 aiohttp==3.13.3
 google-generativeai==0.8.6
 # Note: Ollama client uses aiohttp (already included)
