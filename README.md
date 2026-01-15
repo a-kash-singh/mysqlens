@@ -2,7 +2,9 @@
 
 <div align="center">
 
-🔍 **AI-powered MySQL performance optimization tool**
+# 🔍 MySQLens
+
+**Local-First AI-Powered MySQL Performance Optimization**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
@@ -10,24 +12,53 @@
 [![Next.js](https://img.shields.io/badge/Next.js-15-black.svg)](https://nextjs.org/)
 [![Inspired by OptiSchema](https://img.shields.io/badge/Inspired%20by-OptiSchema--Slim-purple.svg)](https://github.com/arnab2001/Optischema-Slim)
 
-**See clearly. Optimize confidently.**
+**🔒 Local-First** • **🤖 AI-Powered** • **📊 Real-Time** • **🚀 Production-Ready**
 
-[Features](#features) • [Quick Start](#quick-start) • [LLM Setup](#llm-provider-setup) • [Documentation](#documentation) • [Architecture](#architecture) • [Contributing](#contributing)
+[![Privacy First](https://img.shields.io/badge/Privacy-First-brightgreen?style=for-the-badge&logo=shield)](https://github.com/a-kash-singh/mysqlens)
+[![Ollama Support](https://img.shields.io/badge/Ollama-Supported-orange?style=for-the-badge&logo=llama)](https://ollama.com)
+[![Zero Data Egress](https://img.shields.io/badge/Zero-Data%20Egress-blue?style=for-the-badge&logo=database)](https://github.com/a-kash-singh/mysqlens)
+
+**Your schema and queries never leave localhost. Complete privacy. Zero API costs.**
+
+[Features](#features) • [Quick Start](#quick-start) • [Why Local?](#why-local-first) • [Documentation](#documentation) • [Architecture](#architecture) • [Contributing](#contributing)
 
 </div>
 
 ---
 
-## 💡 Inspiration
-
-This project is inspired by [**OptiSchema-Slim**](https://github.com/arnab2001/Optischema-Slim) - an excellent PostgreSQL performance optimization tool. We've adapted the concept for MySQL with enhanced features:
+## 💡 Key Features Highlight
 
 - ✅ **Local LLM Support**: Complete privacy with Ollama integration
 - ✅ **MySQL-Specific**: Tailored for MySQL 8.0+ with `performance_schema`
 - ✅ **Multiple Model Support**: Choose from llama3.2, sqlcoder:7b, and more
 - ✅ **Zero Data Egress**: All AI processing happens locally (when using Ollama)
+- ✅ **Anti-Hallucination**: Multi-layer validation for trustworthy recommendations
 
-Special thanks to [@arnab2001](https://github.com/arnab2001) for the innovative approach to database optimization!
+---
+
+## 🔒 Why Local-First?
+
+MySQLens is designed with **privacy and data sovereignty** as core principles. Unlike cloud-based database tools, your sensitive schema information and query patterns never leave your infrastructure.
+
+### The Local-First Advantage
+
+| Aspect | MySQLens (Local) | Cloud Tools |
+|--------|------------------|-------------|
+| **Data Privacy** | ✅ Schema & queries stay on localhost | ❌ Data sent to external APIs |
+| **API Costs** | ✅ $0 with Ollama | ❌ Per-request charges |
+| **Network Required** | ✅ Works offline | ❌ Requires internet |
+| **Response Time** | ✅ <1s (no network latency) | ⚠️ 2-5s (network overhead) |
+| **Data Compliance** | ✅ GDPR/HIPAA friendly | ⚠️ Depends on provider |
+| **Rate Limits** | ✅ Unlimited | ❌ API quotas apply |
+
+### How We Achieve Local-First
+
+1. **Local LLM via Ollama** - Run powerful AI models (llama3.2, sqlcoder) on your own hardware
+2. **No Telemetry** - We don't collect any usage data or phone home
+3. **Self-Hosted** - Everything runs in your own Docker containers
+4. **Flexible Deployment** - Your machine, your VPC, your rules
+
+**You can optionally use cloud LLM providers** (OpenAI, Gemini, DeepSeek) if you prefer, but we recommend Ollama for maximum privacy.
 
 ---
 
@@ -62,14 +93,15 @@ MySQLens is a production-ready MySQL database performance optimization tool that
 
 ### Why MySQLens?
 
+- 🔐 **Privacy-First & Local** - Run AI analysis completely locally with Ollama (zero data egress, GDPR/HIPAA friendly)
+- 🆓 **Zero API Costs** - No per-request charges, no subscriptions with local LLM (Ollama)
+- 🤖 **AI-Powered Analysis** - Leverages local LLMs (llama3.2, sqlcoder) or cloud providers if you prefer
+- 📡 **Works Offline** - Full functionality without internet when using Ollama
 - 🎯 **Real-time Insights** - Live monitoring of queries, connections, and database vitals
-- 🤖 **AI-Powered Analysis** - Leverages multiple LLM providers (OpenAI, Gemini, DeepSeek, Ollama) for intelligent query optimization
 - 🔍 **Index Intelligence** - Automatically detects unused, redundant, and missing indexes
 - 📊 **Beautiful Dashboard** - Modern, responsive UI built with Next.js 15 and Shadcn UI
-- 🔒 **Secure** - Encrypted credential storage and secure connections
 - 🐳 **Docker-Ready** - One-command deployment with Docker Compose
 - 🌐 **Remote MySQL Support** - Connect to any MySQL instance (local, cloud, RDS, etc.)
-- 🔐 **Privacy-First** - Run AI analysis completely locally with Ollama (no data leaves your machine)
 
 ---
 
@@ -91,6 +123,7 @@ MySQLens is a production-ready MySQL database performance optimization tool that
 - **Multi-Provider Support** - Choose from OpenAI, Google Gemini, DeepSeek, or local Ollama
 - **Query Optimization** - Get AI-powered recommendations for query improvements
 - **Context-Aware Analysis** - Considers schema, indexes, and execution plans
+- **Anti-Hallucination Guardrails** - Multi-layer validation prevents LLM hallucinations
 
 ### Health Monitoring
 - **Comprehensive Health Scans** - Check table fragmentation, configuration issues, and more
@@ -103,21 +136,19 @@ MySQLens is a production-ready MySQL database performance optimization tool that
 
 ## 🚀 Quick Start
 
-**Want to get started fast?** 👉 See the **[Quick Start Guide](./QUICK_START.md)** for a complete 5-minute setup including Ollama!
+**Want to get started fast?** 👉 See the **[Quick Start Guide](./QUICK_START.md)** for a complete 5-minute setup!
 
-### TL;DR - Get Running in 5 Minutes
+### TL;DR - Get Running in 5 Minutes (Local & Private)
+
+**⚡ Automated Setup (Recommended):**
 
 ```bash
-# 1. Install Ollama (for local AI - optional)
-brew install ollama && ollama serve
-ollama pull llama3.2:latest
-
-# 2. Clone and configure
+# 1. Clone the repository
 git clone https://github.com/a-kash-singh/mysqlens.git
 cd mysqlens
-echo "LLM_PROVIDER=ollama
-OLLAMA_BASE_URL=http://host.docker.internal:11434
-OLLAMA_MODEL=llama3.2:latest" > .env
+
+# 2. Run the automated Ollama installer (macOS & Linux)
+./install-ollama.sh
 
 # 3. Start MySQLens
 docker compose up -d
@@ -126,7 +157,36 @@ docker compose up -d
 open http://localhost:3000
 ```
 
-That's it! Connect to your MySQL and start optimizing.
+**Manual Setup:**
+
+```bash
+# 1. Install Ollama manually
+brew install ollama && ollama serve  # macOS
+# OR
+curl -fsSL https://ollama.com/install.sh | sh  # Linux
+# OR download from https://ollama.com/download for Windows
+
+# 2. Pull a model
+ollama pull llama3.2:latest
+
+# 3. Clone and configure
+git clone https://github.com/a-kash-singh/mysqlens.git
+cd mysqlens
+echo "LLM_PROVIDER=ollama
+OLLAMA_BASE_URL=http://host.docker.internal:11434
+OLLAMA_MODEL=llama3.2:latest" > .env
+
+# 4. Start MySQLens
+docker compose up -d
+
+# 5. Open browser
+open http://localhost:3000
+```
+
+**That's it!** Connect to your MySQL and start optimizing with **complete privacy** - your data never leaves localhost.
+
+> 💡 **The automated installer** (`install-ollama.sh`) handles installation, model downloads, and configuration automatically
+> 💡 **Prefer cloud LLMs?** Skip Ollama installation and see [LLM Provider Setup](#llm-provider-setup) for API key configuration
 
 ### Detailed Setup
 

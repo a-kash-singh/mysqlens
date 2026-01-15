@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # MySQLens Quick Setup Script
-# Inspired by OptiSchema-Slim
 
 set -e
 

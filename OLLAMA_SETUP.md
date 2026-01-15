@@ -134,6 +134,51 @@ cd frontend
 npm run dev
 ```
 
+## Health Checks & Diagnostics
+
+MySQLens provides built-in health check endpoints to verify Ollama status:
+
+### Check Ollama Health
+```bash
+# Check if Ollama is running and configured correctly
+curl http://localhost:8080/api/health/ollama
+
+# Expected response when healthy:
+# {
+#   "success": true,
+#   "message": "Ollama health check complete",
+#   "data": {
+#     "healthy": true,
+#     "model_available": true,
+#     "available_models": ["llama3.2:latest", "sqlcoder:7b"],
+#     ...
+#   }
+# }
+```
+
+### List Available Models
+```bash
+# Get all installed Ollama models
+curl http://localhost:8080/api/health/ollama/models
+
+# Shows which models are available for use
+```
+
+### Check LLM Provider Status
+```bash
+# Check active LLM provider and privacy mode
+curl http://localhost:8080/api/health/llm
+
+# When using Ollama, shows:
+# {
+#   "active_provider": "ollama",
+#   "local_mode": true,
+#   "privacy_mode": true,
+#   "zero_data_egress": true,
+#   ...
+# }
+```
+
 ## Troubleshooting
 
 ### Ollama Connection Issues
@@ -142,9 +187,11 @@ npm run dev
 
 **Solutions:**
 1. Verify Ollama is running: `curl http://localhost:11434/api/tags`
-2. Check if port 11434 is accessible
-3. For Docker, ensure `host.docker.internal` resolves correctly
-4. On Linux in Docker, you may need to use `http://172.17.0.1:11434` instead
+2. **NEW**: Use MySQLens health check: `curl http://localhost:8080/api/health/ollama`
+3. Check if port 11434 is accessible
+4. For Docker, ensure `host.docker.internal` resolves correctly
+5. On Linux in Docker, you may need to use `http://172.17.0.1:11434` instead
+6. **NEW**: Run automated installer: `./install-ollama.sh`
 
 ### Model Not Found
 

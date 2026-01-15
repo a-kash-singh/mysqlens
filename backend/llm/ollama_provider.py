@@ -2,6 +2,7 @@
 Ollama Provider for local LLM inference in MySQLens.
 """
 
+import asyncio
 import logging
 import json
 import re
@@ -27,6 +28,7 @@ class OllamaProvider(BaseLLMProvider):
         super().__init__(api_key=None, model=model or "llama3")
         self.base_url = (base_url or "http://localhost:11434").rstrip("/")
         self.generate_url = f"{self.base_url}/api/generate"
+        self.tags_url = f"{self.base_url}/api/tags"
         logger.info(f"Initialized Ollama provider with model: {self.model}")
 
     @property
@@ -235,5 +237,121 @@ Format as JSON:
         except Exception as e:
             logger.error(f"Error calling Ollama analyze: {e}")
             return {
+                "error": str(e)
+            }
+
+    async def health_check(self) -> Dict[str, Any]:
+        """
+        Check Ollama service health and availability.
+
+        Returns:
+            Dictionary with health status, available models, and diagnostics
+        """
+        health_info = {
+            "service": "ollama",
+            "base_url": self.base_url,
+            "configured_model": self.model,
+            "healthy": False,
+            "available_models": [],
+            "model_available": False,
+            "error": None,
+            "suggestions": []
+        }
+
+        try:
+            # Check if Ollama service is reachable
+            async with aiohttp.ClientSession() as session:
+                async with session.get(
+                    self.tags_url,
+                    timeout=aiohttp.ClientTimeout(total=5)
+                ) as response:
+                    if response.status == 200:
+                        result = await response.json()
+                        models = result.get("models", [])
+
+                        health_info["healthy"] = True
+                        health_info["available_models"] = [m.get("name", "") for m in models]
+
+                        # Check if configured model is available
+                        model_names = [m.get("name", "").split(":")[0] for m in models]
+                        configured_model_base = self.model.split(":")[0]
+                        health_info["model_available"] = configured_model_base in model_names
+
+                        if not health_info["model_available"]:
+                            health_info["suggestions"].append(
+                                f"Model '{self.model}' not found. Pull it with: ollama pull {self.model}"
+                            )
+                            if health_info["available_models"]:
+                                health_info["suggestions"].append(
+                                    f"Available models: {', '.join(health_info['available_models'][:3])}"
+                                )
+                    else:
+                        health_info["error"] = f"Ollama API returned status {response.status}"
+                        health_info["suggestions"].append(
+                            "Ollama service is reachable but returned an error"
+                        )
+
+        except aiohttp.ClientConnectorError as e:
+            health_info["error"] = f"Cannot connect to Ollama at {self.base_url}"
+            health_info["suggestions"].extend([
+                "1. Check if Ollama is running: curl http://localhost:11434/api/tags",
+                "2. Start Ollama: ollama serve",
+                "3. For Docker setup, ensure host.docker.internal is accessible",
+                "4. Run automated installer: ./install-ollama.sh"
+            ])
+            logger.warning(f"Ollama health check failed: {e}")
+
+        except asyncio.TimeoutError:
+            health_info["error"] = "Ollama service timeout"
+            health_info["suggestions"].append(
+                "Ollama is taking too long to respond. It may be starting up or overloaded."
+            )
+
+        except Exception as e:
+            health_info["error"] = str(e)
+            health_info["suggestions"].append(
+                "An unexpected error occurred while checking Ollama status"
+            )
+            logger.error(f"Ollama health check error: {e}")
+
+        return health_info
+
+    async def get_available_models(self) -> Dict[str, Any]:
+        """
+        Get list of available Ollama models.
+
+        Returns:
+            Dictionary with models list or error
+        """
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(
+                    self.tags_url,
+                    timeout=aiohttp.ClientTimeout(total=5)
+                ) as response:
+                    if response.status == 200:
+                        result = await response.json()
+                        models = result.get("models", [])
+                        return {
+                            "success": True,
+                            "models": [
+                                {
+                                    "name": m.get("name", ""),
+                                    "size": m.get("size", 0),
+                                    "modified": m.get("modified_at", "")
+                                }
+                                for m in models
+                            ]
+                        }
+                    else:
+                        return {
+                            "success": False,
+                            "error": f"Ollama API returned status {response.status}"
+                        }
+
+        except Exception as e:
+            logger.error(f"Error getting Ollama models: {e}")
+            return {
+                "success": False,
                 "error": str(e)
             }
