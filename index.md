@@ -21,9 +21,9 @@ title: MySQLens - AI-Powered MySQL Performance Optimization
 
 <p>
 <a href="#features">Features</a> •
-<a href="https://github.com/a-kash-singh/mysqlens#quick-start">Quick Start</a> •
-<a href="https://github.com/a-kash-singh/mysqlens#llm-provider-setup">LLM Setup</a> •
-<a href="https://github.com/a-kash-singh/mysqlens#documentation">Documentation</a>
+<a href="#quick-start">Quick Start</a> •
+<a href="{{ '/docs/quick-start/' | relative_url }}">Docs</a> •
+<a href="https://github.com/a-kash-singh/mysqlens">GitHub</a>
 </p>
 
 </div>
@@ -39,6 +39,8 @@ MySQLens is a **production-ready MySQL performance optimization tool** that comb
 - 🔍 **Detect unused and redundant indexes** wasting disk space
 - 📊 **Monitor database health** in real-time
 
+<a id="features"></a>
+
 ## ✨ Key Features
 
 | Feature | Description |
@@ -49,6 +51,8 @@ MySQLens is a **production-ready MySQL performance optimization tool** that comb
 | **📈 Index Intelligence** | Detect unused, duplicate, and missing indexes |
 | **🐳 Docker-Ready** | One-command deployment with Docker Compose |
 | **🌐 Remote MySQL** | Connect to any MySQL instance (local, cloud, RDS) |
+
+<a id="quick-start"></a>
 
 ## 🚀 Quick Start
 
@@ -69,6 +73,8 @@ docker compose up -d
 open http://localhost:3000
 ```
 
+**📖 Need more details?** Check out the [complete Quick Start Guide]({{ '/docs/quick-start/' | relative_url }}).
+
 ## 🏗️ Architecture
 
 ```
@@ -85,13 +91,19 @@ open http://localhost:3000
                          └──────────────┘
 ```
 
+<a id="documentation"></a>
+
 ## 📚 Documentation
 
-- 📖 [Full README](https://github.com/a-kash-singh/mysqlens#readme)
-- 🚀 [Quick Start Guide](https://github.com/a-kash-singh/mysqlens/blob/main/QUICK_START.md)
-- 🤖 [Ollama Setup](https://github.com/a-kash-singh/mysqlens/blob/main/OLLAMA_SETUP.md)
-- 🏗️ [Architecture](https://github.com/a-kash-singh/mysqlens/blob/main/ARCHITECTURE.md)
-- 📡 [API Reference](https://github.com/a-kash-singh/mysqlens/blob/main/API_ENDPOINTS.md)
+- 🚀 [Quick Start Guide]({{ '/docs/quick-start/' | relative_url }}) - Get started in 5 minutes
+- 🤖 [Ollama Setup]({{ '/docs/ollama-setup/' | relative_url }}) - Local LLM configuration
+- 🏗️ [Architecture]({{ '/docs/architecture/' | relative_url }}) - System design and tech stack
+- 📡 [API Reference]({{ '/docs/api/' | relative_url }}) - Complete API documentation
+
+**More on GitHub:**
+- 📖 [Full README](https://github.com/a-kash-singh/mysqlens/blob/main/README.md) - Complete documentation
+- 🚢 [Deployment Guide]({{ '/docs/deployment/' | relative_url }}) - Production deployment
+- 📋 [Contributing](https://github.com/a-kash-singh/mysqlens/blob/main/CONTRIBUTING.md) - How to contribute
 
 ## 🙏 Acknowledgments
 
@@ -103,8 +115,14 @@ This project is inspired by [**OptiSchema-Slim**](https://github.com/arnab2001/O
 
 **Built with 🔍 for better MySQL performance**
 
-<a href="https://github.com/a-kash-singh/mysqlens">View on GitHub</a> •
-<a href="https://github.com/a-kash-singh/mysqlens/issues">Report Bug</a> •
-<a href="https://github.com/a-kash-singh/mysqlens/discussions">Discussions</a>
+<p>
+<a href="https://github.com/a-kash-singh/mysqlens">⭐ View on GitHub</a> •
+<a href="https://github.com/a-kash-singh/mysqlens/issues">🐛 Report Bug</a> •
+<a href="https://github.com/a-kash-singh/mysqlens/discussions">💬 Discussions</a>
+</p>
+
+<p>
+<a href="#top">⬆ Back to Top</a>
+</p>
 
 </div>

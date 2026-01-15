@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Database, Activity, TrendingUp, AlertCircle } from 'lucide-react'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'
 
@@ -89,11 +90,14 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <Database className="w-10 h-10 text-blue-600" />
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              MySQLens
-            </h1>
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-3">
+              <Database className="w-10 h-10 text-blue-600" />
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                MySQLens
+              </h1>
+            </div>
+            <ThemeToggle />
           </div>
           <p className="text-slate-600 dark:text-slate-400">
             AI-powered MySQL performance optimization tool

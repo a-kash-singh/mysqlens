@@ -1,3 +1,9 @@
+---
+layout: default
+title: Architecture
+permalink: /docs/architecture/
+---
+
 # MySQLens Architecture
 
 ## System Overview
@@ -421,6 +427,12 @@ docker compose -f docker compose.dev.yml up
 This architecture is designed to be:
 - **Scalable**: Can be extended with additional features
 - **Maintainable**: Clear separation of concerns
+
+---
+
+<div align="center">
+<a href="{{ '/' | relative_url }}">← Back to Home</a>
+</div>
 - **Secure**: Privacy-first approach
 - **Reliable**: Fallback mechanisms at every layer
 - **Fast**: Async operations and caching

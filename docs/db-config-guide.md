@@ -1,3 +1,9 @@
+---
+layout: default
+title: Database Configuration Guide
+permalink: /docs/db-config-guide/
+---
+
 # Database Configuration Guide
 
 MySQLens supports saving database connection configurations so you don't have to enter credentials every time.
@@ -357,7 +363,7 @@ cp db-config.example.json db-config.json
 If you have issues with database configuration:
 
 - Check the [README](./README.md) for general setup
-- Review [DEPLOYMENT](./DEPLOYMENT.md) for production tips
+- Review [Deployment Guide]({{ '/docs/deployment/' | relative_url }}) for production tips
 - Open an issue: https://github.com/a-kash-singh/mysqlens/issues
 
 ---
@@ -366,7 +372,7 @@ If you have issues with database configuration:
 
 **Built with 🔍 for better MySQL performance**
 
-[← Back to README](./README.md)
+<a href="{{ '/' | relative_url }}">← Back to Home</a>
 
 </div>
 

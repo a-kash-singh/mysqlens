@@ -1,3 +1,9 @@
+---
+layout: default
+title: Ollama Setup Guide
+permalink: /docs/ollama-setup/
+---
+
 # Ollama Setup Guide for MySQLens
 
 This guide will help you set up local LLM support using Ollama for complete data privacy and offline analysis.
@@ -294,5 +300,10 @@ ollama create mysqlens-custom -f Modelfile
 4. Share your experience with the community!
 
 ---
+
+<div align="center">
+<a href="{{ '/' | relative_url }}">← Back to Home</a> •
+<a href="{{ '/docs/quick-start/' | relative_url }}">Quick Start Guide</a>
+</div>
 
 **Built with privacy in mind** 🔒

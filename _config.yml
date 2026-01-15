@@ -38,6 +38,13 @@ exclude:
 include:
   - docs/
   - "*.md"
+  - _pages/
+
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:name/
 
 # Markdown settings
 markdown: kramdown

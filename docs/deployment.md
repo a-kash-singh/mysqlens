@@ -1,3 +1,9 @@
+---
+layout: default
+title: Deployment Guide
+permalink: /docs/deployment/
+---
+
 # Deployment Guide for MySQLens
 
 This guide covers various deployment scenarios for MySQLens.
@@ -615,5 +621,11 @@ curl http://localhost:8080/api/metrics/vitals
 
 ---
 
-For more help, see the [README](README.md) or open an issue on GitHub.
+For more help, see the [README](https://github.com/a-kash-singh/mysqlens/blob/main/README.md) or open an issue on GitHub.
+
+---
+
+<div align="center">
+<a href="{{ '/' | relative_url }}">← Back to Home</a>
+</div>
 

@@ -1,3 +1,9 @@
+---
+layout: default
+title: Quick Start Guide
+permalink: /docs/quick-start/
+---
+
 # 🚀 MySQLens Quick Start Guide
 
 Get MySQLens up and running in **5 minutes** with local AI-powered MySQL optimization!
@@ -310,11 +316,11 @@ performance_schema = ON
 
 ## 📖 Additional Resources
 
-- **Ollama Deep Dive**: [OLLAMA_SETUP.md](./OLLAMA_SETUP.md) - Comprehensive guide
-- **Architecture**: [ARCHITECTURE.md](./ARCHITECTURE.md) - Technical details
-- **API Reference**: [API_ENDPOINTS.md](./API_ENDPOINTS.md) - All endpoints
-- **Deployment**: [DEPLOYMENT.md](./DEPLOYMENT.md) - Production setup
-- **DB Config**: [DB_CONFIG_GUIDE.md](./DB_CONFIG_GUIDE.md) - Advanced config
+- **Ollama Deep Dive**: [Ollama Setup]({{ '/docs/ollama-setup/' | relative_url }}) - Comprehensive guide
+- **Architecture**: [Architecture]({{ '/docs/architecture/' | relative_url }}) - Technical details
+- **API Reference**: [API Reference]({{ '/docs/api/' | relative_url }}) - All endpoints
+- **Deployment**: [Deployment Guide]({{ '/docs/deployment/' | relative_url }}) - Production setup
+- **DB Config**: [DB Config Guide]({{ '/docs/db-config-guide/' | relative_url }}) - Advanced config
 
 ---
 
@@ -329,7 +335,7 @@ performance_schema = ON
 | **llama3.2:1b** | 1.3GB | Limited resources | ⭐⭐⭐⭐⭐ |
 | **deepseek-coder-v2** | 8.9GB | Best quality | ⭐⭐⭐ |
 
-See [OLLAMA_SETUP.md](./OLLAMA_SETUP.md) for detailed comparisons.
+See [Ollama Setup]({{ '/docs/ollama-setup/' | relative_url }}) for detailed comparisons.
 
 ### Multiple Database Connections
 

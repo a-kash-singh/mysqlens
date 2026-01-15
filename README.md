@@ -64,7 +64,7 @@ MySQLens is designed with **privacy and data sovereignty** as core principles. U
 
 ## 📑 Table of Contents
 
-- **[👉 Quick Start Guide](./QUICK_START.md)** - Get started in 5 minutes!
+- **[👉 Quick Start Guide](./docs/quick-start.md)** - Get started in 5 minutes!
 - [Overview](#overview)
 - [Features](#features)
 - [Quick Start](#quick-start) (condensed version)
@@ -136,7 +136,7 @@ MySQLens is a production-ready MySQL database performance optimization tool that
 
 ## 🚀 Quick Start
 
-**Want to get started fast?** 👉 See the **[Quick Start Guide](./QUICK_START.md)** for a complete 5-minute setup!
+**Want to get started fast?** 👉 See the **[Quick Start Guide](./docs/quick-start.md)** for a complete 5-minute setup!
 
 ### TL;DR - Get Running in 5 Minutes (Local & Private)
 
@@ -289,16 +289,16 @@ Open your browser and navigate to:
 ## 📚 Documentation
 
 ### Getting Started
-- **[Quick Start Guide](./QUICK_START.md)** ⭐ - Complete 5-minute setup guide (includes Ollama)
-- **[Ollama Setup](./OLLAMA_SETUP.md)** - Deep dive into local LLM setup and troubleshooting
+- **[Quick Start Guide](./docs/quick-start.md)** ⭐ - Complete 5-minute setup guide (includes Ollama)
+- **[Ollama Setup](./docs/ollama-setup.md)** - Deep dive into local LLM setup and troubleshooting
 
 ### Technical Documentation
-- **[Architecture](./ARCHITECTURE.md)** - System design and technical details
-- **[API Endpoints](./API_ENDPOINTS.md)** - Complete API reference
-- **[Deployment Guide](./DEPLOYMENT.md)** - Production deployment instructions
+- **[Architecture](./docs/architecture.md)** - System design and technical details
+- **[API Reference](./docs/api.md)** - Complete API reference
+- **[Deployment Guide](./docs/deployment.md)** - Production deployment instructions
 
 ### Reference
-- **[DB Config Guide](./DB_CONFIG_GUIDE.md)** - Advanced database configuration
+- **[DB Config Guide](./docs/db-config-guide.md)** - Advanced database configuration
 - **[Contributing](./CONTRIBUTING.md)** - How to contribute to MySQLens
 - **[Changelog](./CHANGELOG.md)** - All notable changes
 
