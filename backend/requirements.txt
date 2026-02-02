@@ -14,14 +14,14 @@ pydantic-settings==2.12.0
 # Security and encryption
 cryptography==41.0.7
 bcrypt==4.1.2
-pyjwt==2.10.1
+pyjwt==2.11.0
 
 # Data processing and analysis
 sqlglot==27.0.0
-sqlparse==0.5.3  # For SQL syntax validation in guardrails
+sqlparse==0.5.5  # For SQL syntax validation in guardrails
 
 # AI and LLM providers
-openai==2.15.0
+openai==2.16.0
 aiohttp==3.13.3
 google-generativeai==0.8.6
 # Note: Ollama client uses aiohttp (already included)
