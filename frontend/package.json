@@ -16,7 +16,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "16.1.1",
+    "next": "16.1.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -24,18 +24,18 @@
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
-    "lucide-react": "^0.562.0",
+    "lucide-react": "^0.563.0",
     "next-themes": "^0.4.4",
     "recharts": "^2.10.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
-    "zustand": "^5.0.10"
+    "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@types/node": "^25",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "autoprefixer": "^10.4.16",
+    "autoprefixer": "^10.4.24",
     "eslint": "^9",
     "eslint-config-next": "15.0.0",
     "postcss": "^8.4.31",
